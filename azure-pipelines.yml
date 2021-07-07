@@ -4,16 +4,16 @@
 # https://aka.ms/yaml
 
 trigger:
-- main
-
-pool:
-  vmImage: ubuntu-latest
-
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
-
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+ - main
+stages:
+ - stage: Build
+   displayName: Create build artifact
+   jobs:
+     - job: BuildArtifact
+       pool: MyLaptop
+       steps:
+         - script: C:\Users\nalini.a.singh\AppData\Local\UiPath\app-21.4.4\UiRobot.exe pack $(Build.SourcesDirectory)\project.json -o $(Build.ArtifactStagingDirectory)\ -v 1.0.$(Build.BuildNumber)
+         - script: \UiRobot.exe pack $(Build.SourcesDirectory)\project.json -o $(Build.ArtifactStagingDirectory)\ -v 1.0.$(Build.BuildNumber)
+           displayName: "Build the artifact"
+         - publish: $(Build.ArtifactStagingDirectory)
+            artifact: drop
