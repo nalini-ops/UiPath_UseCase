@@ -16,4 +16,4 @@ stages:
          - script: \UiRobot.exe pack $(Build.SourcesDirectory)\project.json -o $(Build.ArtifactStagingDirectory)\ -v 1.0.$(Build.BuildNumber)
            displayName: "Build the artifact"
          - publish: $(Build.ArtifactStagingDirectory)
-            artifact: 'drop'
+            artifact:'drop'
