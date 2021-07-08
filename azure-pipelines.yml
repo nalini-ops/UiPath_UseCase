@@ -12,13 +12,12 @@ stages:
      - job: BuildArtifact
        pool: MyLaptop
        steps:
-         - task: UiPathPack@2
-           inputs:
-             versionType: 'AutoVersion'
-             projectJsonPath: '$(Build.SourcesDirectory)'
-             outputType: 'Process'
-             orchestratorConnection: 'UiPathCiCDPipeline'
-             outputPath: '$(Build.ArtifactStagingDirectory)'
+         
+         - script: C:\Users\nalini.a.singh\AppData\Local\UiPath\app-21.4.4\UiRobot.exe pack $(Build.SourcesDirectory)\project.json -o $(Build.ArtifactStagingDirectory)\ -v 1.0.$(Build.BuildNumber)
+         - script: \UiRobot.exe pack $(Build.SourcesDirectory)\project.json -o $(Build.ArtifactStagingDirectory)\ -v 1.0.$(Build.BuildNumber)
+           displayName: "Build the artifact"
+         - publish: $(Build.ArtifactStagingDirectory)
+            artifact:'drop'
          - task: UiPathDeploy@2
            inputs:
             orchestratorConnection: 'UiPathCiCDPipeline'
