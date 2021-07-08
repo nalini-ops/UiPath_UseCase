@@ -18,6 +18,5 @@ stages:
            inputs: 
             filepath : C:\Users\nalini.a.singh\Desktop\UiPathPacUpload.ps1          
             script: UiPathPacUpload.ps1 
-            failOnStderr: true
-            ignoreLASTEXITCODE: true
-            pwsh: true
+
+  
