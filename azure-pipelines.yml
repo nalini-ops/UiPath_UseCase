@@ -14,6 +14,8 @@ stages:
      - job: BuildArtifact
        pool: MyLaptop
        steps:
+         - script: C:\Users\nalini.a.singh\AppData\Local\UiPath\app-21.4.4\UiRobot.exe pack $(Build.SourcesDirectory)\project.json -o $(Build.ArtifactStagingDirectory)\ -v 1.0.$(Build.BuildNumber)
+           displayName: "Build the artifact"
          - task: "PowerShell@2"
            inputs: 
             filepath : C:\Users\nalini.a.singh\Desktop\UiPathPacUpload.ps1          
