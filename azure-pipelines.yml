@@ -12,15 +12,15 @@ stages:
      - job: BuildArtifact
        pool: MyLaptop
        steps:
-         - task: UiPathDeploy@2
-           inputs:
-            orchestratorConnection: 'UiPathCiCDPipeline'
-            packagesPath: '$(Build.SourcesDirectory)'
-            folderName: 'Default'
          - task: UiPathPack@2
            inputs:
              versionType: 'AutoVersion'
              projectJsonPath: '$(Build.SourcesDirectory)'
              outputType: 'Process'
              orchestratorConnection: 'UiPathCiCDPipeline'
-             outputPath: '$(Build.ArtifactStagingDirectory)\Output'
+             outputPath: '$(Build.ArtifactStagingDirectory)'
+         - task: UiPathDeploy@2
+           inputs:
+            orchestratorConnection: 'UiPathCiCDPipeline'
+            packagesPath: '$(Build.SourcesDirectory)'
+            folderName: 'Default'    
