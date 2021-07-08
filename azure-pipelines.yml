@@ -5,6 +5,8 @@
 
 trigger:
  - main
+variables:
+  - group: UiPath 
 stages:
  - stage: Build
    displayName: Create build artifact
@@ -12,7 +14,6 @@ stages:
      - job: BuildArtifact
        pool: MyLaptop
        steps:
-         
-         - script: C:\Users\nalini.a.singh\AppData\Local\UiPath\app-21.4.4\UiRobot.exe pack $(Build.SourcesDirectory)\project.json -o $(Build.ArtifactStagingDirectory)\ -v 1.0.$(Build.BuildNumber)
-           displayName: "Build the artifact"
-         - publish: $(Build.ArtifactStagingDirectory)
+         - script: Import-Module UiPath.Powershell 
+         - script: $token = Get-UiPathAuthToken -ClientId $(DevClientID) -UserKey $(DevUserKey) -AccountName $(DevUserKey) -CloudDeployment ‘Production’ -TenantName $(DevClientID)
+         - script: Add-UiPathPackage -PackageFile $(Pipeline.Workspace)\TestCases.1.0.$(Build.BuildNumber).nupkg -AuthToken $token
