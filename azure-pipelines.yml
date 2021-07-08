@@ -6,12 +6,19 @@
 trigger:
  - main
 stages:
- - stage: Build
-   displayName: Create build artifact
+ - stage: DeployDEV
+   displayName: Deploy build artifact to DEV
    jobs:
-     - job: BuildArtifact
-       pool: MyLaptop
-       steps:
-         - script: C:\Users\nalini.a.singh\AppData\Local\UiPath\app-21.4.4\UiRobot.exe pack $(Build.SourcesDirectory)\project.json -o $(Build.ArtifactStagingDirectory)\ -v 1.0.$(Build.BuildNumber)
-           displayName: "Build the artifact" 
-         - publish: $(Build.ArtifactStagingDirectory)   
+      - deployment: deployDEV
+        displayName: Deploy package to DEV Orchestrator
+        pool: MyLaptop
+        environment: DEV
+        strategy:
+         runOnce:
+          deploy:
+           steps:          
+            - task: UiPathDeploy@2
+              inputs:
+               orchestratorConnection: 'UiPathCiCDPipeline'
+               packagesPath: '$(Pipeline.Workspace)'
+               folderName: 'Default'
