@@ -15,5 +15,9 @@ stages:
        pool: MyLaptop
        steps:
          - task: "PowerShell@2"
-           inputs:              
-            script: 'Import-Module UiPath.Powershell;$token = Get-UiPathAuthToken -ClientId $(DevClientID) -UserKey $(DevUserKey) -AccountName $(DevUserKey) -CloudDeployment ‘Production’ -TenantName $(DevClientID);Add-UiPathPackage -PackageFile $(Pipeline.Workspace)\TestCases.1.0.$(Build.BuildNumber).nupkg -AuthToken $token'
+           inputs: 
+            filepath : $(System.DefaultWorkingDirectory)           
+            script: UiPathPacUpload.ps1 
+            failOnStderr: true
+            ignoreLASTEXITCODE: true
+            pwsh: true
