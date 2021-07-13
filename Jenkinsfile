@@ -70,6 +70,26 @@ pipeline {
 	            }
 	        }
 	
+                    //Run Job
+                  stage('Run Process') {
+                  steps {
+                  echo "Running Job ${BRANCH_NAME} "
+                  UiPathRunJob ( credentials: Token(accountName: "${UIPATH_ORCH_LOGICAL_NAME}", credentialsId: 'APIUserKey'),
+                  failWhenJobFails: true, 
+                  folderName: "${UIPATH_ORCH_FOLDER_NAME}", 
+                  orchestratorAddress: "${UIPATH_ORCH_URL}", 
+                  orchestratorTenant: "${UIPATH_ORCH_TENANT_NAME}", 
+                  parametersFilePath: '', 
+                  priority: 'Low', 
+                  processName: 'TestCases_Test', 
+                  resultFilePath: '', 
+                  strategy: Robot('NewOne11'), 
+                  timeout: 60, 
+                  waitForJobCompletion: true  
+	          
+                  ) 
+                   }
+               }
 
 	
 
