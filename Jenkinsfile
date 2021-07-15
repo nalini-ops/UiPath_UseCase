@@ -11,6 +11,8 @@ pipeline {
 	        UIPATH_ORCH_LOGICAL_NAME = "nalinisingh02"
 	        UIPATH_ORCH_TENANT_NAME = "nalinisingh02"
 	        UIPATH_ORCH_FOLDER_NAME = "Default"
+		UIPATH_ENV ="Test"	
+			
 	    }
 	
 
@@ -61,7 +63,7 @@ pipeline {
 	                orchestratorAddress: "${UIPATH_ORCH_URL}",
 	                orchestratorTenant: "${UIPATH_ORCH_TENANT_NAME}",
 	                folderName: "${UIPATH_ORCH_FOLDER_NAME}",
-	                environments: 'Test',
+			environments: "${UIPATH_ENV}",
 	                //credentials: [$class: 'UserPassAuthenticationEntry', credentialsId: 'APIUserKey']
 	                credentials: Token(accountName: "${UIPATH_ORCH_LOGICAL_NAME}", credentialsId: 'APIUserKey'), 
 	
@@ -81,7 +83,7 @@ pipeline {
                   orchestratorTenant: "${UIPATH_ORCH_TENANT_NAME}", 
                   parametersFilePath: '', 
                   priority: 'Low', 
-                  processName: 'TestCases_Test', 
+		  processName: "${JOB_NAME + '_'+ UIPATH_ENV}", 
                   resultFilePath: '', 
                   strategy: Robot('NewOne11'), 
                   timeout: 60, 
